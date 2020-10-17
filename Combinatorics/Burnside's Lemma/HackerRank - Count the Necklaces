@@ -1,0 +1,48 @@
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+#define fn(x) return cout << x << endl, 0
+#define prs(x) cout << x << " "
+#define prl(x) cout << x << endl
+#define pr(x) cout << x
+#define pi 3.14159265358979323846264338327950
+
+typedef long long ll;
+ll MOD = (ll)1000000007;
+
+ll gcd(ll a, ll b)
+{
+  return (!b ? a : gcd(b, a % b));
+}
+
+ll pow(ll a, ll k)
+{
+  if (!k)
+    return 1;
+  ll res = pow(a, k >> 1);
+  res = (res * res) % MOD;
+  if (k & 1)
+    res = (res * a) % MOD;
+  return res;
+}
+
+ll modMulInv(int n)
+{
+  return pow(n, MOD - 2);
+}
+
+int main()
+{
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
+  cout.tie(0);
+
+  ll n, k;
+  cin >> n >> k;
+  ll tot = 0;
+  for (int i = 1; i <= n; ++i)
+    tot += pow(k, gcd(i, n)), tot %= MOD;
+  cout << (tot * modMulInv(n)) % MOD;
+}
