@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class PipeCuts
+{
+public:
+  double probability(vector<int> wildLocations, int L)
+  {
+    int n = wildLocations.size();
+    int S = n * (n - 1) / 2;
+    double fav = 0;
+    sort(wildLocations.begin(), wildLocations.end());
+    for (int i = 0; i < n; ++i)
+      for (int j = i + 1; j < n; ++j)
+        if (wildLocations[i] > L || wildLocations[j] - wildLocations[i] > L || 100 - wildLocations[j] > L)
+          ++fav;
+    return fav / S;
+  }
+};
